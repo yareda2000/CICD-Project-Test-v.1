@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="70c1005b-b4a9-436e-91a2-1feb55e21650" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="aben-cicd-deployment-pFlow" doc:id="43f358bc-b707-4ad7-9bb7-71b1b81c6e01" >
+		<http:listener doc:name="Listener" doc:id="51486ced-fb9c-4ecf-867e-690ab95ed8c5" config-ref="HTTP_Listener_config" path="cicd-test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e27e2037-4c1b-4b4c-818a-ff58a7b93670" message="Start log : #[attributes.queryParams.myCICDTest]"/>
+		<set-payload value="#[attributes.queryParams.myCICDTest]" doc:name="Set Payload" doc:id="23ee01e1-c004-46cc-a169-7f2d7504dd65" />
+		<logger level="INFO" doc:name="End-Logger" doc:id="5a29e99e-2620-4525-9405-9726f22a0440" message="End of flow paylod : #[payload]"/>
+	</flow>
+</mule>
